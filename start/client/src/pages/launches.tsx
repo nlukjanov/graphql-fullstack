@@ -7,7 +7,6 @@ import * as GetLaunchListTypes from './__generated__/GetLaunchList';
 
 export const LAUNCH_TILE_DATA = gql`
   fragment LaunchTile on Launch {
-    __typename
     id
     isBooked
     rocket {
@@ -16,7 +15,6 @@ export const LAUNCH_TILE_DATA = gql`
     }
     mission {
       name
-      missionPatch
     }
   }
 `;
@@ -27,18 +25,11 @@ const GET_LAUNCHES = gql`
       cursor
       hasMore
       launches {
-        id
-        isBooked
-        rocket {
-          id
-          name
-        }
-        mission {
-          name
-        }
+        ...LaunchTile
       }
     }
   }
+  ${LAUNCH_TILE_DATA}
 `;
 
 interface LaunchesProps extends RouteComponentProps {}
